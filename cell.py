@@ -13,7 +13,7 @@ class Cell():
         self._x2 = None
         self._y1 = None
         self._y2 = None
-        self._win = _win
+        self._win = _win.canvas
     
     def draw(self, x1, y1, x2, y2):
         self._x1 = x1
@@ -34,4 +34,17 @@ class Cell():
             right_wall = Line(Point(x2, y1), Point(x2, y2))
             right_wall.draw(self._win)
          
+    def center_point(self):
+        d1 = abs(self._x2 - self._x1) 
+        d2 = abs(self._y2 - self._y1)
+        return Point(self._x1 + (d1//2), self._y1 + (d2//2))
+
+    
+    def draw_move(self, to_cell, undo=False):
+        color = "red"
+        if undo:
+            color = "grey"
+        
+        path = Line(self.center_point(), to_cell.center_point())
+        path.draw(self._win, color)
 
