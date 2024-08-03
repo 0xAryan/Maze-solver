@@ -13,7 +13,9 @@ class Cell():
         self._x2 = None
         self._y1 = None
         self._y2 = None
-        self._win = _win.canvas
+        self.visited = False
+        if _win is not None:
+            self._win = _win.canvas
     
     def draw(self, x1, y1, x2, y2):
         self._x1 = x1
@@ -24,15 +26,27 @@ class Cell():
         if self.has_top_wall:
             top_wall = Line(Point(x1, y1), Point(x2, y1))
             top_wall.draw(self._win)
+        else:
+            top_wall = Line(Point(x1, y1), Point(x2, y1))
+            top_wall.draw(self._win, fill_color="white")
         if self.has_left_wall:
             left_wall = Line(Point(x1, y1), Point(x1, y2))
             left_wall.draw(self._win)
+        else:
+            left_wall = Line(Point(x1, y1), Point(x1, y2))
+            left_wall.draw(self._win, fill_color="white")
         if self.has_bottom_wall:
             bottom_wall = Line(Point(x1, y2), Point(x2, y2))
             bottom_wall.draw(self._win)
+        else:
+            bottom_wall = Line(Point(x1, y2), Point(x2, y2))
+            bottom_wall.draw(self._win, fill_color="white")
         if self.has_right_wall:
             right_wall = Line(Point(x2, y1), Point(x2, y2))
             right_wall.draw(self._win)
+        else:
+            right_wall = Line(Point(x2, y1), Point(x2, y2))
+            right_wall.draw(self._win, fill_color="white")
          
     def center_point(self):
         d1 = abs(self._x2 - self._x1) 
